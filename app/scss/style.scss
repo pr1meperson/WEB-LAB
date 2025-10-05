@@ -1,9 +1,74 @@
-$color: blue;
+:root{
+  --accent: #08a8c6; /* блакитний акцент */
+  --sidebar: #0f2b33; /* темний сайдбар */
+  --muted: #6c757d;
+  --maxw: 900px;
+  --radius: 4px;
+  font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
 
-body {
-  background: red;
-  h1 {
-    color: $color;
-    text-align: center;
-  }
+body{
+  background:#141418;
+  color:#222;
+  padding:30px 0;
+  -webkit-font-smoothing:antialiased;
+}
+
+.resume{
+  max-width: var(--maxw);
+  background: transparent;
+}
+
+/* Ліва панель (контент) */
+.left{
+  background: #ffffff;
+  border-right: 6px solid var(--accent);
+  min-height: 720px;
+}
+
+/* Права панель (сайдбар) */
+.right{
+  background: var(--sidebar);
+  min-height: 720px;
+}
+
+/* Аватар */
+.avatar-wrap{ width:100px; height:100px; flex:0 0 100px; }
+.avatar{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border:6px solid #e9f7fb;
+  background:#f1f1f1;
+  border-radius:4px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* Ім'я / заголовки */
+.name{
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing:1px;
+  font-size:22px;
+}
+.name .last{ display:block; font-weight:700; font-size:20px; color:#0b4860; }
+
+/* Секції */
+.section-title{
+  font-weight:700;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+/* Progress bars (стиль) */
+.progress{ height:8px; background:#e9ecef; border-radius:4px; }
+.progress-bar{ border-radius:4px; }
+
+/* Права колонка: заголовки та контент */
+.right h6{ font-weight:700; }
+.right .text-info{ color: var(--accent) !important; }
+
+/* Адаптив */
+@media(max-width:991.98px){
+  .left, .right { min-height: auto; }
+  .avatar-wrap{ width:80px; height:80px; }
 }
