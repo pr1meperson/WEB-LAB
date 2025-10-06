@@ -19,7 +19,7 @@ const html = () => src('app/index.html')
     .pipe(browserSync.stream());
 
 // 🎨 Styles
-const styles = () => src('app/scss/*.scss')
+const styles = () => src('app/scss/style.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(cssnano())
     .pipe(rename({ suffix: '.min' }))
@@ -27,34 +27,42 @@ const styles = () => src('app/scss/*.scss')
     .pipe(browserSync.stream());
 
 // 💻 Scripts
-const scripts = () => src('app/js/*.js')
+const scripts = () => src('app/js/script.js')
     .pipe(concat('main.min.js'))
-    .pipe(uglify().on('error', e => { console.log(e.toString()); this.emit('end'); }))
+    .pipe(uglify().on('error', e => {
+        console.log(e.toString());
+        this.emit('end');
+    }))
     .pipe(dest('dist/js'))
     .pipe(browserSync.stream());
 
-// 🖼️ Images
-const images = () => src('app/img/**/*')
+// 🖼 Images
+const images = () => src('app/images/**/*')
     .pipe(imagemin())
-    .pipe(dest('dist/imgs'));
+    .pipe(dest('dist/images'));
+
+// 🌟 Favicon
+const favicon = () => src('app/favicon.ico', { allowEmpty: true })
+    .pipe(dest('dist'));
 
 // 🔄 Server
-const sync = done => { browserSync.init({ server: { baseDir: 'dist' } }); done(); };
+const sync = done => {
+    browserSync.init({ server: { baseDir: 'dist' } });
+    done();
+};
 
 // 👀 Watcher
 const watcher = () => {
     watch('app/**/*.html', html);
     watch('app/scss/**/*.scss', styles);
     watch('app/js/**/*.js', scripts);
-    watch('app/img/**/*', images);
+    watch('app/images/**/*', images);
 };
 
-// 🏁 Exports
-exports.clean = clean;
-exports.html = html;
-exports.styles = styles;
-exports.scripts = scripts;
-exports.images = images;
-exports.sync = sync;
-exports.watcher = watcher;
-exports.default = series(clean, parallel(html, styles, scripts, images), sync, watcher);
+// 🏁 Default
+exports.default = series(
+    clean,
+    parallel(html, styles, scripts, images, favicon),
+    sync,
+    watcher
+);
