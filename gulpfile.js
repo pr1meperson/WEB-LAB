@@ -9,60 +9,127 @@ const browserSync = require('browser-sync').create();
 const fileInclude = require('gulp-file-include');
 const del = require('del');
 
-// 🧹 Clean
+// ----------------- Paths -----------------
+const paths = {
+    html: {
+        src: 'app/index.html',
+        watch: 'app/**/*.html',
+        dest: 'dist'
+    },
+    styles: {
+        src: 'app/scss/style.scss',
+        watch: 'app/scss/**/*.scss',
+        dest: 'dist/css'
+    },
+    scripts: {
+        src: 'app/js/**/*.js',
+        dest: 'dist/js'
+    },
+    images: {
+        src: 'app/images/**/*',
+        dest: 'dist/images'
+    },
+    favicon: {
+        src: 'app/favicon.ico',
+        dest: 'dist'
+    },
+    bootstrap: {
+        css: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+        js: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+    }
+};
+
+// ----------------- Clean -----------------
 const clean = () => del(['dist']);
 
-// 📄 HTML
-const html = () => src('app/index.html')
-    .pipe(fileInclude({ prefix: '@@', basepath: '@file' }))
-    .pipe(dest('dist'))
-    .pipe(browserSync.stream());
+// ----------------- Bootstrap copy -----------------
+const copyBootstrapCSS = () => {
+    return src(paths.bootstrap.css)
+        .pipe(dest(paths.styles.dest));
+};
+const copyBootstrapJS = () => {
+    return src(paths.bootstrap.js)
+        .pipe(dest(paths.scripts.dest));
+};
+const copyBootstrap = parallel(copyBootstrapCSS, copyBootstrapJS);
 
-// 🎨 Styles
-const styles = () => src('app/scss/style.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(cssnano())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(dest('dist/css'))
-    .pipe(browserSync.stream());
+// ----------------- HTML -----------------
+const html = () => {
+    return src(paths.html.src)
+        .pipe(fileInclude({ prefix: '@@', basepath: '@file' }))
+        .pipe(dest(paths.html.dest))
+        .pipe(browserSync.stream());
+};
 
-// 💻 Scripts
-const scripts = () => src('app/js/script.js')
-    .pipe(concat('main.min.js'))
-    .pipe(uglify().on('error', e => {
-        console.log(e.toString());
-        this.emit('end');
-    }))
-    .pipe(dest('dist/js'))
-    .pipe(browserSync.stream());
+// ----------------- Styles -----------------
+const styles = () => {
+    return src(paths.styles.src)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cssnano())
+        .pipe(rename({ basename: 'style', suffix: '.min' }))
+        .pipe(dest(paths.styles.dest))
+        .pipe(browserSync.stream());
+};
 
-// 🖼 Images
-const images = () => src('app/images/**/*')
-    .pipe(imagemin())
-    .pipe(dest('dist/images'));
+// ----------------- Scripts -----------------
+const scripts = () => {
+    return src(paths.scripts.src, { sourcemaps: false })
+        .pipe(concat('main.min.js'))
+        .pipe(uglify().on('error', function (e) {
+            console.error(e.toString());
+            this.emit('end');
+        }))
+        .pipe(dest(paths.scripts.dest))
+        .pipe(browserSync.stream());
+};
 
-// 🌟 Favicon
-const favicon = () => src('app/favicon.ico', { allowEmpty: true })
-    .pipe(dest('dist'));
+// ----------------- Images -----------------
+const images = () => {
+    return src(paths.images.src)
+        .pipe(imagemin())
+        .pipe(dest(paths.images.dest));
+};
 
-// 🔄 Server
-const sync = done => {
-    browserSync.init({ server: { baseDir: 'dist' } });
+// ----------------- Favicon -----------------
+const favicon = () => {
+    return src(paths.favicon.src, { allowEmpty: true })
+        .pipe(dest(paths.favicon.dest));
+};
+
+// ----------------- Server -----------------
+const serve = done => {
+    browserSync.init({
+        server: {
+            baseDir: 'dist'
+        },
+        notify: false,
+        port: 3000
+    });
     done();
 };
 
-// 👀 Watcher
+// ----------------- Watcher -----------------
 const watcher = () => {
-    watch('app/**/*.html', html);
-    watch('app/scss/**/*.scss', styles);
-    watch('app/js/**/*.js', scripts);
-    watch('app/images/**/*', images);
+    watch(paths.html.watch, html);
+    watch(paths.styles.watch, styles);
+    watch(paths.scripts.src, scripts);
+    watch(paths.images.src, images);
 };
 
-// 🏁 Default
+// ----------------- Exports -----------------
+exports.clean = clean;
+exports.bootstrap = copyBootstrap;
+exports.html = html;
+exports.styles = styles;
+exports.scripts = scripts;
+exports.images = images;
+exports.favicon = favicon;
+
 exports.default = series(
     clean,
+    // copy bootstrap first so final index.html can reference it in dist/css
+    copyBootstrap,
     parallel(html, styles, scripts, images, favicon),
-    sync,
+    serve,
     watcher
 );
