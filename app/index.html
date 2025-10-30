@@ -30,7 +30,7 @@
             --text-grey-light: #bbb;
             --text-grey-dark: #666;
             --border-grey: #e0e0e0;
-            --header-height-desktop: 280px;
+            --header-height-desktop: 380px; /* ЗМІНЕНО: Збільшена висота хедера */
             --photo-width-desktop: 200px;
             --photo-height-desktop: 240px;
             --border-thickness: 35px; /* Товщина білої рамки ліворуч/знизу */
@@ -43,7 +43,7 @@
             margin: 20px auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             display: flex;
-            min-height: calc(100vh - 40px);
+            min-height: calc(100vh - 200px);
             background: var(--light-bg);
             border-radius: 0;
             position: relative;
@@ -92,8 +92,6 @@
             /* Додатковий білий простір праворуч, щоб жовтий блок внизу виглядав відцентрованим */
             padding-right: var(--border-thickness) !important;
         }
-
-        /* Інші стилі лишаються, але я підчистив неактуальне */
 
         /* Внутрішній рядок Bootstrap для розподілу колонок */
         .resume-container .row {
@@ -173,6 +171,11 @@
             padding: 3rem 3rem 2rem 3rem;
         }
 
+        /* ЗМІНА 1: Опустити секцію EXPERTISE */
+        .left-col-section:nth-last-child(1) {
+            margin-top: 50px;
+        }
+
         /* Заголовки секцій (Education, Experience, Expertise) */
         .section-title {
             font-size: 1.35rem;
@@ -182,6 +185,11 @@
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 10px 0;
+            margin-left: -3rem;
+            padding-left: 3rem;
+            width: calc(100% + 3rem);
         }
         /* Декоративна жовта/темна лінія біля заголовка */
         .section-title-line {
@@ -204,9 +212,9 @@
             font-weight: 600 !important;
             font-size: 1.1rem !important;
             text-transform: uppercase;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
-        /* Жовтий бейдж з роками роботи */
+        /* Підтягуємо жовті прямокутники до краю */
         .exp-item .badge {
             background: var(--accent-yellow) !important;
             color: var(--primary-dark) !important;
@@ -216,18 +224,21 @@
             font-size: 0.75rem;
             display: inline-block;
             vertical-align: middle;
+            margin-right: 5px;
         }
-        /* Текст місцезнаходження */
+        /* Підтягуємо текст місцезнаходження */
         .exp-item .location {
             color: var(--text-grey-light);
             font-weight: 400;
             font-size: 0.9rem;
-            margin-left: 0.5rem;
+            margin-left: 0px;
             vertical-align: middle;
         }
+        /* Збільшуємо шрифт для опису досвіду */
         .experience-item p.description {
             color: var(--text-grey-light) !important;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
             margin-top: 0.5rem;
         }
 
@@ -350,7 +361,6 @@
             background: #fff;
             bottom: 30px;
             right: 70px;
-            box-shadow: 0 12px 0 0 #fff;
         }
         /* Зображення профілю */
         .header-img {
@@ -380,9 +390,23 @@
         .section-title.right-col-title {
             color: var(--primary-dark);
             margin-bottom: 1.5rem;
+            /* ДОДАНО: Стилі для сірого фону та вирівнювання */
+            background-color: rgba(0, 0, 0, 0.05); /* Дуже легкий сірий, майже прозорий */
+            padding: 10px 0; /* Верхній/нижній відступ для висоти */
+            display: inline-flex; /* Дозволяє фону бути лише по ширині контенту */
+            align-items: center;
+            padding-left: 3rem; /* Вирівнюємо з лівою колонкою */
+            max-width: fit-content; /* Ширина по контенту */
+            position: relative;
+            left: -3rem; /* Компенсуємо padding-left батьківського .right-section */
         }
+        /* Декоративна жовта/темна лінія біля заголовка */
         .section-title.right-col-title .section-title-line {
-            background: var(--primary-dark) !important;
+            background: var(--accent-yellow) !important;
+            display: inline-block; /* Забезпечуємо, щоб він працював з inline-flex */
+            width: 10px;
+            height: 1.3rem;
+            margin-right: 0.75rem;
         }
 
         /* Розділювальна лінія HR у правій колонці */
@@ -480,6 +504,19 @@
             .resume-container::after {
                 display: none;
             }
+
+            /* Скидаємо додатковий відступ для expertise в мобільному режимі */
+            .left-col-section:nth-last-child(1) {
+                margin-top: 0;
+            }
+            /* Скидаємо фон заголовка секції в мобільному режимі, якщо він там не потрібен */
+            .section-title {
+                background-color: transparent;
+                padding: 0;
+                margin-left: 0;
+                padding-left: 0;
+                width: auto;
+            }
         }
 
         @media (max-width: 767.98px) {
@@ -548,7 +585,7 @@
 
                 <article class="exp-item mb-4 experience-text">
                     <h6 class="fw-bold">Enter Job Position Here</h6>
-                    <span class="badge">2017-2018</span>
+                    <span class="badge">2017-2011</span>
                     <span class="location">Company Name / Location</span>
                     <p class="description">Lorem ipsum dolor sit amet, this is a thema consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
                 </article>
