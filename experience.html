@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Досвід роботи — JavaScript + DOM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Досвід роботи</h1>
+    <p>Привіт, <span id="personName"></span>!</p>
+</header>
+
+<nav>
+    <a href="index.html">Головна</a> |
+    <a href="skills.html">Навички</a>
+</nav>
+
+<main>
+    <div class="card">
+        <div class="toggle-row" data-target="exp-content">
+            <span class="toggle-title">Мій досвід роботи</span>
+            <div class="arrow">▶</div>
+        </div>
+        <div id="exp-content" class="content"></div>
+    </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

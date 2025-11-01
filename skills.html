@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Навички — JavaScript + DOM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Навички</h1>
+    <p>Привіт, <span id="personName"></span>!</p>
+</header>
+
+<nav>
+    <a href="index.html">Головна</a> |
+    <a href="experience.html">Досвід роботи</a>
+</nav>
+
+<main>
+    <div class="card">
+        <div class="toggle-row" data-target="skills-content">
+            <span class="toggle-title">Перелік навичок</span>
+            <div class="arrow">▶</div>
+        </div>
+        <div id="skills-content" class="content"></div>
+    </div>
+
+    <button id="regenButton">Перегенерувати навички</button>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
