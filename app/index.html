@@ -1,305 +1,316 @@
+<!-- Оголошення типу документа HTML5 -->
 <!DOCTYPE html>
+
+<!-- Початок HTML-документа з вказанням мови -->
 <html lang="en">
 <head>
+    <!-- Кодування символів UTF-8 для підтримки різних мов -->
     <meta charset="UTF-8" />
+    <!-- Viewport для адаптивного дизайну на мобільних пристроях -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Заголовок сторінки у вкладці браузера -->
     <title>Resume - MICHEL RIGAURIO</title>
 
+    <!-- Підключення Bootstrap CSS для стилізації -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Підключення шрифту Poppins з Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Підключення Font Awesome для іконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Внутрішні CSS стилі -->
     <style>
         /* --- ОСНОВНІ СТИЛІ ТА ЗМІННІ --- */
 
         /* Стилі для всього тіла документа */
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Poppins', sans-serif; /* Встановлення основного шрифту */
+            margin: 0; /* Видалення зовнішніх відступів */
+            padding: 0; /* Видалення внутрішніх відступів */
+            background-color: #f0f0f0; /* Світло-сірий фон сторінки */
+            overflow-x: hidden; /* Приховування горизонтальної прокрутки */
+            position: relative; /* Відносне позиціонування для псевдоелементів */
         }
 
-        /* Змінні для кольорів, що використовуються в макеті */
+        /* CSS змінні для кольорів та розмірів */
         :root {
-            --primary-dark: #32353a;
-            --accent-yellow: #ffc107; /* Акцентний жовтий */
-            --light-bg: #ffffff;
-            --text-grey-light: #bbb;
-            --text-grey-dark: #666;
-            --border-grey: #e0e0e0;
-            --header-height-desktop: 380px; /* ЗМІНЕНО: Збільшена висота хедера */
-            --photo-width-desktop: 200px;
-            --photo-height-desktop: 240px;
-            --border-thickness: 35px; /* Товщина білої рамки ліворуч/знизу */
-            --bottom-bar-height: 18px; /* Висота жовтої декоративної смуги */
+            --primary-dark: #32353a; /* Основний темно-сірий колір */
+            --accent-yellow: #ffc107; /* Акцентний жовтий колір */
+            --light-bg: #ffffff; /* Білий колір фону */
+            --text-grey-light: #bbb; /* Світло-сірий колір тексту */
+            --text-grey-dark: #666; /* Темно-сірий колір тексту */
+            --border-grey: #e0e0e0; /* Сірий колір для меж */
+            --header-height-desktop: 380px; /* Висота хедера для десктопу */
+            --photo-width-desktop: 200px; /* Ширина фото для десктопу */
+            --photo-height-desktop: 250px; /* Висота фото для десктопу */
+            --border-thickness: 35px; /* Товщина білої рамки */
+            --bottom-bar-height: 15px; /* Висота жовтої смуги внизу */
         }
 
-        /* Обгортка для всього вмісту резюме */
+        /* Основний контейнер резюме */
         .resume-container {
-            max-width: 1100px;
-            margin: 20px auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex;
-            min-height: calc(100vh - 200px);
-            background: var(--light-bg);
-            border-radius: 0;
-            position: relative;
-            z-index: 10;
-            /* Додаємо білу рамку навколо всього контенту */
+            max-width: 1100px; /* Максимальна ширина контейнера */
+            margin: 20px auto; /* Центрування контейнера */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Тінь навколо контейнера */
+            display: flex; /* Flexbox для розташування дочірних елементів */
+            min-height: calc(100vh - 200px); /* Мінімальна висота */
+            background: var(--light-bg); /* Білий фон */
+            border-radius: 0; /* Без закруглених кутів */
+            position: relative; /* Для позиціонування псевдоелементів */
+            z-index: 10; /* Високий z-index для перекриття */
+            /* Додавання білої рамки зліва та знизу */
             padding-left: var(--border-thickness);
             padding-bottom: var(--border-thickness);
         }
 
-        /* ЖОВТИЙ ПРЯМОКУТНИК ЗНИЗУ СПРАВА ВНУТРІ РЕЗЮМЕ */
+        /* Жовтий прямокутник внизу справа всередині резюме */
         .resume-container::after {
-            content: '';
-            position: absolute;
-            bottom: var(--border-thickness); /* Піднімаємо на висоту нижньої рамки */
-            right: 0;
-            width: 380px;
-            height: var(--bottom-bar-height);
-            background-color: var(--accent-yellow);
-            z-index: 9;
-            box-shadow: -1px -1px 3px rgba(0,0,0,0.1);
+            content: ''; /* Обов'язковий для псевдоелементів */
+            position: absolute; /* Абсолютне позиціонування */
+            bottom: var(--border-thickness); /* Позиція знизу */
+            right: 0; /* Притиснуто до правого краю */
+            width: 355px; /* Ширина жовтої смуги */
+            height: var(--bottom-bar-height); /* Висота жовтої смуги */
+            background-color: var(--accent-yellow); /* Жовтий колір */
+            z-index: 9; /* z-index нижче за контент */
+            box-shadow: -1px -1px 3px rgba(0,0,0,0.1); /* Легка тінь */
         }
 
-        /* Білий простір ліворуч і знизу для лівої колонки */
+        /* Ліва колонка (темна) */
         .left-col {
-            background: var(--primary-dark) !important;
-            color: #fff;
-            padding: 0 !important;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            position: relative;
-            /* Створюємо ілюзію білої лінії знизу, що дорівнює нижній рамці контейнера */
+            background: var(--primary-dark) !important; /* Темний фон */
+            color: #fff; /* Білий текст */
+            padding: 0 !important; /* Без внутрішніх відступів */
+            display: flex; /* Flexbox для вертикального розташування */
+            flex-direction: column; /* Вертикальне розташування дочірних елементів */
+            flex-grow: 1; /* Займає весь доступний простір */
+            position: relative; /* Для позиціонування псевдоелементів */
+            /* Додавання відступу знизу для білої рамки */
             padding-bottom: var(--border-thickness) !important;
         }
 
-        /* Стилі для правої колонки (біла зона) */
+        /* Права колонка (світла) */
         .right-col {
-            background: var(--light-bg) !important;
-            padding: 0 !important;
-            position: relative;
-            z-index: 1;
-            flex-grow: 1;
-            overflow: hidden;
-            /* Створюємо ілюзію білої лінії знизу, що дорівнює нижній рамці контейнера */
+            background: var(--light-bg) !important; /* Білий фон */
+            padding: 0 !important; /* Без внутрішніх відступів */
+            position: relative; /* Для позиціонування псевдоелементів */
+            z-index: 1; /* z-index для перекриття */
+            flex-grow: 1; /* Займає весь доступний простір */
+            overflow: hidden; /* Приховування виступаючого вмісту */
+            /* Додавання відступів для білої рамки */
             padding-bottom: var(--border-thickness) !important;
-            /* Додатковий білий простір праворуч, щоб жовтий блок внизу виглядав відцентрованим */
             padding-right: var(--border-thickness) !important;
         }
 
-        /* Внутрішній рядок Bootstrap для розподілу колонок */
+        /* Рядок Bootstrap всередині контейнера */
         .resume-container .row {
-            flex-grow: 1;
+            flex-grow: 1; /* Займає всю доступну висоту */
         }
 
-        /* Хедер (Ім'я та посада) - біла зона */
+        /* Хедер з іменем та посадою (біла зона) */
         .header-left {
-            padding: 4.5rem 3rem 2.5rem 3rem;
-            background: var(--light-bg);
-            position: relative;
-            overflow: hidden;
-            z-index: 10;
-            min-height: var(--header-height-desktop);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 4.5rem 3rem 2.5rem 3rem; /* Внутрішні відступи */
+            background: var(--light-bg); /* Білий фон */
+            position: relative; /* Для позиціонування псевдоелементів */
+            overflow: hidden; /* Приховування виступаючих елементів */
+            z-index: 10; /* Високий z-index */
+            min-height: var(--header-height-desktop); /* Мінімальна висота */
+            display: flex; /* Flexbox для центрування вмісту */
+            flex-direction: column; /* Вертикальне розташування */
+            justify-content: center; /* Вертикальне центрування */
         }
         /* Стилі для великого імені MICHEL */
         .header-left h1 {
-            font-size: 3.8rem;
-            font-weight: 470;
-            line-height: 1;
-            margin-bottom: 0;
-            color: var(--accent-yellow);
-            letter-spacing: -1px;
+            font-size: 3.8rem; /* Великий розмір шрифту */
+            font-weight: 470; /* Напівжирний шрифт */
+            line-height: 1; /* Міжрядковий інтервал */
+            margin-bottom: 0; /* Без нижнього відступу */
+            color: var(--accent-yellow); /* Жовтий колір */
+            letter-spacing: -1px; /* Зменшений міжлітерний інтервал */
         }
         /* Стилі для великого прізвища RIGAURIO */
         .header-left h2 {
-            font-size: 3.8rem;
-            font-weight: 550;
-            line-height: 1;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: var(--primary-dark);
-            letter-spacing: -1px;
+            font-size: 3.8rem; /* Великий розмір шрифту */
+            font-weight: 550; /* Напівжирний шрифт */
+            line-height: 1; /* Міжрядковий інтервал */
+            margin-top: 0; /* Без верхнього відступу */
+            margin-bottom: 10px; /* Нижній відступ */
+            color: var(--primary-dark); /* Темно-сірий колір */
+            letter-spacing: -1px; /* Зменшений міжлітерний інтервал */
         }
         /* Стилі для посади */
         .header-left h3 {
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: var(--primary-dark);
-            margin-top: 5px;
+            font-size: 1.3rem; /* Розмір шрифту */
+            font-weight: 500; /* Напівжирний шрифт */
+            color: var(--primary-dark); /* Темно-сірий колір */
+            margin-top: 5px; /* Верхній відступ */
         }
         /* Декоративні лінії на білому хедері (перша) */
         .header-left::before, .header-left::after {
-            content: '';
-            position: absolute;
-            background-color: #ffc107;
-            z-index: 1;
+            content: ''; /* Обов'язковий для псевдоелементів */
+            position: absolute; /* Абсолютне позиціонування */
+            background-color: #ffc107; /* Жовтий колір */
+            z-index: 1; /* z-index для перекриття */
         }
         .header-left::before {
-            width: 220px;
-            height: 5px;
-            top: 140px;
-            right: -60px;
+            width: 220px; /* Ширина лінії */
+            height: 5px; /* Висота лінії */
+            top: 140px; /* Позиція зверху */
+            right: -60px; /* Виходить за праву межу */
         }
         /* Декоративні лінії на білому хедері (друга) */
         .header-left::after {
-            width: 80px;
-            height: 2px;
-            top: 100px;
-            right: -30px;
+            width: 100px; /* Ширина лінії */
+            height: 3px; /* Висота лінії */
+            top: 100px; /* Позиція зверху */
+            background-color: #000; /* Чорний колір */
+            right: -30px; /* Виходить за праву межу */
         }
 
         /* Тонка чорна лінія між білою та сірою зоною */
         .left-col > hr {
-            background-color: #000 !important;
-            height: 2px !important;
-            opacity: 1;
-            margin: 0 !important;
-            border: none;
+            background-color: #000 !important; /* Чорний колір */
+            height: 1px !important; /* Висота лінії */
+            opacity: 1; /* Повна непрозорість */
+            margin: 0 !important; /* Без зовнішніх відступів */
+            border: none; /* Без рамки */
         }
 
         /* Внутрішній відступ для секцій лівої колонки */
         .left-col-section {
-            padding: 3rem 3rem 2rem 3rem;
+            padding: 3rem 3rem 2rem 3rem; /* Внутрішні відступи */
         }
 
-        /* ЗМІНА 1: Опустити секцію EXPERTISE */
+        /* Опустити секцію EXPERTISE вниз */
         .left-col-section:nth-last-child(1) {
-            margin-top: 50px;
+            margin-top: 50px; /* Верхній відступ для останньої секції */
         }
 
-        /* Заголовки секцій (Education, Experience, Expertise) */
+        /* Заголовки секцій (Education, Experience, Expertise) - ВИРІВНЯНІ */
         .section-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.08);
-            padding: 10px 0;
-            margin-left: -3rem;
-            padding-left: 3rem;
-            width: calc(100% + 3rem);
+            font-size: 1.35rem; /* Розмір шрифту */
+            font-weight: 700; /* Жирний шрифт */
+            letter-spacing: 1px; /* Міжлітерний інтервал */
+            text-transform: uppercase; /* Великі літери */
+            margin-bottom: 1.5rem; /* Нижній відступ */
+            display: flex; /* Flexbox для вирівнювання */
+            align-items: center; /* Вертикальне центрування */
+            background-color: rgba(255, 255, 255, 0.08); /* Напівпрозорий білий фон */
+            padding: 1px 0; /* Внутрішні відступи */
+            /* ВИРІВНЯННЯ: видалено негативний margin та додано стандартні відступи */
+            margin-left: 0;
+            padding-left: 0;
+            width: auto; /* Автоматична ширина */
         }
         /* Декоративна жовта/темна лінія біля заголовка */
         .section-title-line {
-            display: inline-block;
-            width: 10px;
-            height: 1.3rem;
-            background: var(--accent-yellow);
-            margin-right: 0.75rem;
+            display: inline-block; /* Блочно-рядковий елемент */
+            width: 10px; /* Ширина лінії */
+            height: 1.3rem; /* Висота лінії */
+            background: var(--accent-yellow); /* Жовтий колір */
+            margin-right: 0.75rem; /* Відступ праворуч */
         }
 
         /* Стилі для тексту Education/Experience */
         .education-text p, .experience-text p {
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 0.3rem;
-            color: var(--text-grey-light);
+            font-size: 0.9rem; /* Розмір шрифту */
+            line-height: 1.4; /* Міжрядковий інтервал */
+            margin-bottom: 0.3rem; /* Нижній відступ */
+            color: var(--text-grey-light); /* Світло-сірий колір тексту */
         }
         .education-item-title, .experience-item h6 {
-            color: var(--accent-yellow) !important;
-            font-weight: 600 !important;
-            font-size: 1.1rem !important;
-            text-transform: uppercase;
-            margin-bottom: 0.3rem;
+            color: var(--accent-yellow) !important; /* Жовтий колір */
+            font-weight: 600 !important; /* Напівжирний шрифт */
+            font-size: 1.1rem !important; /* Розмір шрифту */
+            text-transform: uppercase; /* Великі літери */
+            margin-bottom: 0.3rem; /* Нижній відступ */
         }
         /* Підтягуємо жовті прямокутники до краю */
         .exp-item .badge {
-            background: var(--accent-yellow) !important;
-            color: var(--primary-dark) !important;
-            font-weight: 700;
-            border-radius: 4px;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 5px;
+            background: var(--accent-yellow) !important; /* Жовтий фон */
+            color: var(--primary-dark) !important; /* Темний текст */
+            font-weight: 700; /* Жирний шрифт */
+            border-radius: 4px; /* Закруглені кути */
+            padding: 4px 8px; /* Внутрішні відступи */
+            font-size: 0.75rem; /* Розмір шрифту */
+            display: inline-block; /* Блочно-рядковий елемент */
+            vertical-align: middle; /* Вертикальне вирівнювання */
+            margin-right: 5px; /* Відступ праворуч */
         }
         /* Підтягуємо текст місцезнаходження */
         .exp-item .location {
-            color: var(--text-grey-light);
-            font-weight: 400;
-            font-size: 0.9rem;
-            margin-left: 0px;
-            vertical-align: middle;
+            color: var(--text-grey-light); /* Світло-сірий колір */
+            font-weight: 400; /* Звичайний шрифт */
+            font-size: 0.9rem; /* Розмір шрифту */
+            margin-left: 0px; /* Без лівого відступу */
+            vertical-align: middle; /* Вертикальне вирівнювання */
         }
         /* Збільшуємо шрифт для опису досвіду */
         .experience-item p.description {
-            color: var(--text-grey-light) !important;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-top: 0.5rem;
+            color: var(--text-grey-light) !important; /* Світло-сірий колір */
+            font-size: 0.95rem; /* Розмір шрифту */
+            line-height: 1.6; /* Міжрядковий інтервал */
+            margin-top: 0.5rem; /* Верхній відступ */
         }
 
         /* Обгортка для кіл Expertise */
         .expertise-container {
-            padding: 0 20px;
+            padding: 0 20px; /* Внутрішні відступи */
         }
         /* Обгортка для одного елемента Expertise */
         .expertise-item {
-            width: 25%;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            width: 25%; /* Ширина 25% для 4 елементів в ряд */
+            text-align: center; /* Центрування тексту */
+            margin-bottom: 1.5rem; /* Нижній відступ */
+            display: flex; /* Flexbox для центрування */
+            flex-direction: column; /* Вертикальне розташування */
+            align-items: center; /* Горизонтальне центрування */
+            justify-content: center; /* Вертикальне центрування */
         }
         /* Зовнішнє коло (рамка) */
         .expertise-circle {
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            position: relative;
-            margin: 0 auto 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            width: 85px; /* Ширина кола */
+            height: 85px; /* Висота кола */
+            border-radius: 50%; /* Кругла форма */
+            position: relative; /* Для позиціонування дочірних елементів */
+            margin: 0 auto 10px; /* Центрування та нижній відступ */
+            display: flex; /* Flexbox для центрування вмісту */
+            align-items: center; /* Вертикальне центрування */
+            justify-content: center; /* Горизонтальне центрування */
+            overflow: hidden; /* Приховування виступаючих елементів */
         }
         /* SVG для анімації прогресу */
         .expertise-circle svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; /* Абсолютне позиціонування */
+            top: 0; /* Притиснуто до верху */
+            left: 0; /* Притиснуто до ліва */
+            width: 100%; /* Повна ширина */
+            height: 100%; /* Повна висота */
         }
 
         /* Спільні стилі для кіл-треку та прогресу */
         .expertise-circle svg circle {
-            fill: none;
-            stroke-width: 9;
-            r: 36;
-            cx: 42.5;
-            cy: 42.5;
-            transform-origin: center;
-            transform: rotate(90deg);
-            transition: stroke-dashoffset 0.5s ease-in-out;
-            stroke-linecap: round;
+            fill: none; /* Без заливки */
+            stroke-width: 9; /* Товщина лінії */
+            r: 36; /* Радіус кола */
+            cx: 42.5; /* Центр по X */
+            cy: 42.5; /* Центр по Y */
+            transform-origin: center; /* Точка трансформації в центрі */
+            transform: rotate(90deg); /* Поворот на 90 градусів */
+            transition: stroke-dashoffset 0.5s ease-in-out; /* Плавна анімація */
+            stroke-linecap: round; /* Закруглені кінці лінії */
         }
 
         /* Стилі для сірого треку (фон прогресу) */
         .expertise-circle svg .circle-track {
-            stroke: #6c757d;
+            stroke: #6c757d; /* Сірий колір */
         }
 
         /* Стилі для жовтої смуги прогресу - додано чорний контур */
         .expertise-circle svg .circle-progress {
-            stroke: var(--accent-yellow);
-            stroke-dasharray: 226.2;
-            stroke-dashoffset: 226.2;
+            stroke: var(--accent-yellow); /* Жовтий колір */
+            stroke-dasharray: 226.2; /* Довжина штрихів (2 * π * r) */
+            stroke-dashoffset: 226.2; /* Початкове зміщення */
             /* Чорний контур за допомогою drop-shadow */
             -webkit-filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black);
             filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black);
@@ -313,249 +324,242 @@
 
         /* Текст у колі */
         .expertise-circle span {
-            color: #fff;
-            font-size: 0.7rem;
-            line-height: 1.2;
-            padding: 0 5px;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 10;
+            color: #fff; /* Білий колір тексту */
+            font-size: 0.7rem; /* Розмір шрифту */
+            line-height: 1.2; /* Міжрядковий інтервал */
+            padding: 0 5px; /* Внутрішні відступи */
+            text-transform: uppercase; /* Великі літери */
+            position: relative; /* Для z-index */
+            z-index: 10; /* Вище за SVG */
         }
 
         /* --- ПРАВА КОЛОНКА (4/12) --- */
 
         /* Зона для жовтого блоку та зображення */
         .image-placement-area {
-            position: relative;
-            width: 100%;
-            height: var(--header-height-desktop);
-            z-index: 2;
+            position: relative; /* Для позиціонування дочірних елементів */
+            width: 100%; /* Повна ширина */
+            height: var(--header-height-desktop); /* Висота як у хедера */
+            z-index: 2; /* z-index для перекриття */
         }
         /* Сам жовтий блок */
         .header-img-box {
-            background: var(--accent-yellow) !important;
-            position: absolute;
-            top: 0;
-            right: -50px;
-            width: calc(100% + 50px);
-            height: 100%;
-            z-index: 1;
+            background: var(--accent-yellow) !important; /* Жовтий фон */
+            position: absolute; /* Абсолютне позиціонування */
+            top: 0; /* Притиснуто до верху */
+            right: -50px; /* Виходить за праву межу */
+            width: calc(100% + 50px); /* Ширина з урахуванням виступу */
+            height: 100%; /* Повна висота */
+            z-index: 1; /* z-index нижче за зображення */
         }
         /* Декоративні лінії на жовтому блоці (перша - темна) */
         .header-img-box::before, .header-img-box::after {
-            content: '';
-            position: absolute;
-            z-index: 3;
+            content: ''; /* Обов'язковий для псевдоелементів */
+            position: absolute; /* Абсолютне позиціонування */
+            z-index: 3; /* z-index для перекриття */
         }
-        .header-img-box::before {
-            width: 50px;
-            height: 2px;
-            background: #333;
-            top: 80px;
-            right: 80px;
-        }
+
         /* Декоративні лінії на жовтому блоці (друга - біла, подвійна) */
         .header-img-box::after {
-            width: 100px;
-            height: 8px;
-            background: #fff;
-            bottom: 30px;
-            right: 70px;
+            width: 170px; /* Ширина лінії */
+            height: 5px; /* Висота лінії */
+            background: #fff; /* Білий колір */
+            bottom: 70px; /* Позиція знизу */
+            right: 160px; /* Позиція праворуч */
         }
         /* Зображення профілю */
         .header-img {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            width: var(--photo-width-desktop);
-            height: var(--photo-height-desktop);
-            border-radius: 0;
-            z-index: 2;
-            object-fit: cover;
-            object-position: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: absolute; /* Абсолютне позиціонування */
+            bottom: 80px; /* Позиція знизу */
+            right: 170px; /* Позиція праворуч */
+            width: var(--photo-width-desktop); /* Ширина фото */
+            height: var(--photo-height-desktop); /* Висота фото */
+            object-fit: cover; /* Збереження пропорцій з обрізкою */
+            z-index: 20; /* Високий z-index для перекриття */
+            border: none; /* Без рамки */
         }
 
         /* Стилі для секцій правої колонки (біла зона) */
         .right-section {
-            padding: 3rem;
+            padding: 3rem; /* Внутрішні відступи */
         }
         /* Виключення: для першої секції після хедеру */
         .right-section.main-content {
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
+            padding-top: 1.5rem; /* Менший верхній відступ */
+            padding-bottom: 1.5rem; /* Менший нижній відступ */
         }
 
-        /* Заголовки секцій для правої колонки */
+        /* Заголовки секцій для правої колонки - ВИРІВНЯНІ */
         .section-title.right-col-title {
-            color: var(--primary-dark);
-            margin-bottom: 1.5rem;
-            /* ДОДАНО: Стилі для сірого фону та вирівнювання */
-            background-color: rgba(0, 0, 0, 0.05); /* Дуже легкий сірий, майже прозорий */
-            padding: 10px 0; /* Верхній/нижній відступ для висоти */
-            display: inline-flex; /* Дозволяє фону бути лише по ширині контенту */
-            align-items: center;
-            padding-left: 3rem; /* Вирівнюємо з лівою колонкою */
-            max-width: fit-content; /* Ширина по контенту */
-            position: relative;
-            left: -3rem; /* Компенсуємо padding-left батьківського .right-section */
+            color: var(--primary-dark); /* Темно-сірий колір */
+            margin-bottom: 1.5rem; /* Нижній відступ */
+            /* ВИРІВНЯННЯ: видалено спеціальні стилі для вирівнювання */
+            background-color: transparent; /* Прозорий фон */
+            padding: 0; /* Без відступів */
+            display: flex; /* Залишаємо flex для вирівнювання лінії */
+            align-items: center; /* Вертикальне центрування */
+            padding-left: 0; /* Без відступу зліва */
+            max-width: none; /* Автоматична ширина */
+            position: static; /* Стандартне позиціонування */
+            left: auto; /* Скидаємо зсув */
         }
         /* Декоративна жовта/темна лінія біля заголовка */
         .section-title.right-col-title .section-title-line {
-            background: var(--accent-yellow) !important;
-            display: inline-block; /* Забезпечуємо, щоб він працював з inline-flex */
-            width: 10px;
-            height: 1.3rem;
-            margin-right: 0.75rem;
+            background: var(--accent-yellow) !important; /* Жовтий колір */
+            display: inline-block; /* Блочно-рядковий елемент */
+            width: 10px; /* Ширина лінії */
+            height: 1.6rem; /* Висота лінії */
+            margin-right: 0.75rem; /* Відступ праворуч */
         }
 
         /* Розділювальна лінія HR у правій колонці */
         .right-col > hr {
-            background-color: var(--border-grey) !important;
-            height: 1px !important;
-            border: none;
-            margin: 0 3rem;
-            opacity: 1;
+            background-color: var(--border-grey) !important; /* Сірий колір */
+            height: 1px !important; /* Висота лінії */
+            border: none; /* Без рамки */
+            margin: 0 3rem; /* Зовнішні відступи */
+            opacity: 1; /* Повна непрозорість */
         }
 
         /* Текст секцій About Me та Contact Info */
         .about-me-text p, .contact-info p {
-            color: var(--text-grey-dark);
-            font-size: 0.9rem;
-            line-height: 1.5;
+            color: var(--text-grey-dark); /* Темно-сірий колір тексту */
+            font-size: 0.9rem; /* Розмір шрифту */
+            line-height: 1.5; /* Міжрядковий інтервал */
+
         }
         .contact-info strong {
-            display: block;
-            font-weight: 600;
-            color: var(--primary-dark);
-            font-size: 1rem;
-            margin-top: 1rem;
-            margin-bottom: -0.1rem;
+            display: block; /* Блочний елемент */
+            font-weight: 600; /* Напівжирний шрифт */
+            color: var(--primary-dark); /* Темно-сірий колір */
+            font-size: 1rem; /* Розмір шрифту */
+            margin-top: 1rem; /* Верхній відступ */
+            margin-bottom: -0.1rem; /* Негативний нижній відступ */
         }
         .contact-info p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.5rem; /* Нижній відступ */
         }
 
         /* Іконки Hobbies */
         .hobby-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            display: flex; /* Flexbox для вертикального розташування */
+            flex-direction: column; /* Вертикальне розташування */
+            align-items: center; /* Горизонтальне центрування */
+            text-align: center; /* Центрування тексту */
         }
         .hobby-icon {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--accent-yellow);
-            border-radius: 50%;
-            margin: 0 auto 5px;
-            font-size: 1.2rem;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 40px; /* Ширина іконки */
+            height: 40px; /* Висота іконки */
+            border: 1px solid var(--accent-yellow); /* Жовта рамка */
+            border-radius: 50%; /* Кругла форма */
+            margin: 0 auto 5px; /* Центрування та нижній відступ */
+            font-size: 1.2rem; /* Розмір іконки */
+            background: #fff; /* Білий фон */
+            display: flex; /* Flexbox для центрування іконки */
+            align-items: center; /* Вертикальне центрування */
+            justify-content: center; /* Горизонтальне центрування */
         }
         .hobby-icon i {
-            color: var(--accent-yellow);
+            color: var(--accent-yellow); /* Жовтий колір іконки */
         }
         .hobby-label {
-            color: var(--text-grey-dark);
-            font-size: 0.75rem;
+            color: var(--text-grey-dark); /* Темно-сірий колір тексту */
+            font-size: 0.75rem; /* Розмір шрифту */
         }
 
         /* --- Адаптивні стилі (Media Queries) --- */
 
+        /* Планшети та менші десктопи */
         @media (max-width: 991.98px) {
             .resume-container {
-                margin: 0;
-                box-shadow: none;
-                min-height: auto;
-                flex-direction: column;
-                /* Скидаємо рамки для мобільного режиму */
+                margin: 0; /* Без зовнішніх відступів */
+                box-shadow: none; /* Без тіні */
+                min-height: auto; /* Автоматична висота */
+                flex-direction: column; /* Вертикальне розташування колонок */
+                /* Скидання рамок для мобільного режиму */
                 padding-left: 0;
                 padding-bottom: 0;
             }
             .left-col, .right-col {
-                min-height: auto;
-                padding: 0 !important;
-                width: 100%;
-                /* Скидаємо рамки для мобільного режиму */
+                min-height: auto; /* Автоматична висота */
+                padding: 0 !important; /* Без відступів */
+                width: 100%; /* Повна ширина */
+                /* Скидання рамок для мобільного режиму */
                 padding-bottom: 0 !important;
                 padding-right: 0 !important;
             }
 
             .header-left {
-                padding: 2rem;
-                min-height: auto;
+                padding: 2rem; /* Менші відступи */
+                min-height: auto; /* Автоматична висота */
             }
-            .header-left h1, .header-left h2 { font-size: 2.8rem; }
-            .left-col-section { padding: 2rem 2rem 1.5rem 2rem; }
+            .header-left h1, .header-left h2 { font-size: 2.8rem; } /* Менший розмір шрифту */
+            .left-col-section { padding: 2rem 2rem 1.5rem 2rem; } /* Менші відступи */
 
-            .image-placement-area { height: 200px; }
-            .header-img-box { right: -30px; width: calc(100% + 30px); }
-            .header-img-box::before, .header-img-box::after { display: none; }
-            .header-img { top: 30px; right: 20px; width: 150px; height: 160px; }
+            .image-placement-area { height: 200px; } /* Менша висота */
+            .header-img-box { right: -30px; width: calc(100% + 30px); } /* Менший виступ */
+            .header-img-box::before, .header-img-box::after { display: none; } /* Приховування декоративних ліній */
+            .header-img { top: 30px; right: 20px; width: 150px; height: 160px; } /* Інші розміри та позиція */
 
-            .right-section { padding: 2rem; }
-            .right-col > hr { margin: 0 2rem; }
+            .right-section { padding: 2rem; } /* Менші відступи */
+            .right-col > hr { margin: 0 2rem; } /* Менші відступи */
 
-            .expertise-item { width: 33.33%; }
+            .expertise-item { width: 33.33%; } /* 3 елементи в ряд */
 
             .resume-container::after {
-                display: none;
+                display: none; /* Приховування жовтої смуги */
             }
 
-            /* Скидаємо додатковий відступ для expertise в мобільному режимі */
+            /* Скидання додаткового відступу для expertise в мобільному режимі */
             .left-col-section:nth-last-child(1) {
                 margin-top: 0;
             }
-            /* Скидаємо фон заголовка секції в мобільному режимі, якщо він там не потрібен */
-            .section-title {
-                background-color: transparent;
-                padding: 0;
-                margin-left: 0;
-                padding-left: 0;
-                width: auto;
-            }
         }
 
+        /* Мобільні пристрої */
         @media (max-width: 767.98px) {
-            .header-left { padding: 1.5rem; }
-            .header-left h1, .header-left h2 { font-size: 2.2rem; }
-            .left-col-section { padding: 1.5rem 1.5rem 1rem 1.5rem; }
+            .header-left { padding: 1.5rem; } /* Ще менші відступи */
+            .header-left h1, .header-left h2 { font-size: 2.2rem; } /* Ще менший розмір шрифту */
+            .left-col-section { padding: 1.5rem 1.5rem 1rem 1.5rem; } /* Ще менші відступи */
 
-            .image-placement-area { height: 160px; }
-            .header-img-box { right: -15px; width: calc(100% + 15px); }
-            .header-img { top: 20px; right: 15px; width: 120px; height: 140px; }
+            .image-placement-area { height: 160px; } /* Ще менша висота */
+            .header-img-box { right: -15px; width: calc(100% + 15px); } /* Ще менший виступ */
+            .header-img { top: 20px; right: 15px; width: 120px; height: 140px; } /* Інші розміри та позиція */
 
-            .right-section { padding: 1.5rem; }
-            .right-col > hr { margin: 0 1.5rem; }
+            .right-section { padding: 1.5rem; } /* Ще менші відступи */
+            .right-col > hr { margin: 0 1.5rem; } /* Ще менші відступи */
 
-            .expertise-item { width: 50%; }
+            .expertise-item { width: 50%; } /* 2 елементи в ряд */
         }
     </style>
 </head>
 <body>
 
+<!-- Основний контейнер резюме -->
 <div class="container-fluid g-0 resume-container">
     <div class="row g-0">
 
+        <!-- Ліва колонка (8/12 ширини на великих екранах) -->
         <section class="col-lg-8 left-col">
 
+            <!-- Хедер з іменем та посадою -->
             <header class="header-left">
                 <h1>MICHEL</h1>
                 <h2>RIGAURIO</h2>
                 <h3>UI/UX Designer</h3>
             </header>
 
+            <!-- Роздільна лінія -->
             <hr>
 
+            <!-- Секція освіти -->
             <div class="left-col-section">
                 <h3 class="section-title text-uppercase">
                     <span class="section-title-line"></span>
                     EDUCATION
                 </h3>
 
+                <!-- Два стовпці з інформацією про освіту -->
                 <div class="row text-light education-text">
                     <div class="col-md-6 mb-4">
                         <p class="education-item-title">ENTER YOUR MAJOR</p>
@@ -570,12 +574,14 @@
                 </div>
             </div>
 
+            <!-- Секція досвіду роботи -->
             <div class="left-col-section">
                 <h3 class="section-title text-uppercase">
                     <span class="section-title-line"></span>
                     EXPERIENCE
                 </h3>
 
+                <!-- Перший досвід роботи -->
                 <article class="exp-item mb-4 experience-text">
                     <h6 class="fw-bold">Enter Job Position Here</h6>
                     <span class="badge">Present</span>
@@ -583,6 +589,7 @@
                     <p class="description">Lorem ipsum dolor sit amet, this is a thema consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
                 </article>
 
+                <!-- Другий досвід роботи -->
                 <article class="exp-item mb-4 experience-text">
                     <h6 class="fw-bold">Enter Job Position Here</h6>
                     <span class="badge">2017-2011</span>
@@ -591,13 +598,16 @@
                 </article>
             </div>
 
+            <!-- Секція навичок (Expertise) -->
             <div class="left-col-section">
                 <h3 class="section-title text-uppercase">
                     <span class="section-title-line"></span>
                     EXPERTISE
                 </h3>
 
+                <!-- Контейнер для круглих індикаторів навичок -->
                 <div class="d-flex justify-content-between flex-wrap mt-4 expertise-container">
+                    <!-- Adobe Photoshop -->
                     <div class="expertise-item">
                         <div class="expertise-circle ps mb-2">
                             <svg viewBox="0 0 85 85">
@@ -607,6 +617,7 @@
                             <span class="fw-bold">Adobe<br>Photoshop</span>
                         </div>
                     </div>
+                    <!-- Adobe Illustrator -->
                     <div class="expertise-item">
                         <div class="expertise-circle ai mb-2">
                             <svg viewBox="0 0 85 85">
@@ -616,6 +627,7 @@
                             <span class="fw-bold">Adobe<br>Illustrator</span>
                         </div>
                     </div>
+                    <!-- Adobe Indesign -->
                     <div class="expertise-item">
                         <div class="expertise-circle id mb-2">
                             <svg viewBox="0 0 85 85">
@@ -625,6 +637,7 @@
                             <span class="fw-bold">Adobe<br>Indesign</span>
                         </div>
                     </div>
+                    <!-- Figma Sketch -->
                     <div class="expertise-item">
                         <div class="expertise-circle pp mb-2">
                             <svg viewBox="0 0 85 85">
@@ -638,13 +651,17 @@
             </div>
         </section>
 
+        <!-- Права колонка (4/12 ширини на великих екранах) -->
         <aside class="col-lg-4 right-col">
 
+            <!-- Область для зображення профілю -->
             <div class="image-placement-area">
                 <div class="header-img-box"></div>
-                <img src="https://i.imgur.com/rN3c5kF.png" alt="Michel Rigaudio photo" class="header-img" title="Michel Rigaudio photo">
+                <!-- Зображення профілю - ЗМІНЕНО: вставлено ваше фото -->
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQECiN183jowdw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1663401915716?e=1763596800&v=beta&t=RrEF__Tq0YutAAMPSZ4FkcBjuH1DdPk9RffZgH5yKjM" alt="Michel Rigaudio photo" class="header-img" title="Michel Rigaudio photo">
             </div>
 
+            <!-- Секція "Про мене" -->
             <div class="right-section main-content">
                 <h4 class="section-title right-col-title text-uppercase">
                     <span class="section-title-line"></span>
@@ -655,8 +672,10 @@
                 </div>
             </div>
 
+            <!-- Роздільна лінія -->
             <hr>
 
+            <!-- Секція контактної інформації -->
             <div class="right-section">
                 <h4 class="section-title right-col-title text-uppercase">
                     <span class="section-title-line"></span>
@@ -669,26 +688,33 @@
                 </div>
             </div>
 
+            <!-- Роздільна лінія -->
             <hr>
 
+            <!-- Секція хобі -->
             <div class="right-section">
                 <h4 class="section-title right-col-title text-uppercase">
                     <span class="section-title-line"></span>
                     HOBBIES
                 </h4>
+                <!-- Контейнер для іконок хобі -->
                 <div class="d-flex justify-content-between align-items-center mt-3" style="padding: 0 10px;">
+                    <!-- Подорожі -->
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-plane"></i></div>
                         <div class="hobby-label">Travel</div>
                     </div>
+                    <!-- Музика -->
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-music"></i></div>
                         <div class="hobby-label">Music</div>
                     </div>
+                    <!-- Письмо -->
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-pencil-alt"></i></div>
                         <div class="hobby-label">Writing</div>
                     </div>
+                    <!-- Шахи -->
                     <div class="hobby-item">
                         <div class="hobby-icon"><i class="fas fa-chess-knight"></i></div>
                         <div class="hobby-label">Chess</div>
@@ -700,6 +726,7 @@
     </div>
 </div>
 
+<!-- Підключення Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
