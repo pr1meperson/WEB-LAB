@@ -37,14 +37,14 @@
             --primary-dark: #32353a; /* Основний темно-сірий колір */
             --accent-yellow: #ffc107; /* Акцентний жовтий колір */
             --light-bg: #ffffff; /* Білий колір фону */
-            --text-grey-light: #bbb; /* Світло-сірий колір тексту */
+            --text-grey-light: #ffff; /* Світло-сірий колір тексту */
             --text-grey-dark: #666; /* Темно-сірий колір тексту */
             --border-grey: #e0e0e0; /* Сірий колір для меж */
             --header-height-desktop: 380px; /* Висота хедера для десктопу */
             --photo-width-desktop: 200px; /* Ширина фото для десктопу */
             --photo-height-desktop: 250px; /* Висота фото для десктопу */
             --border-thickness: 35px; /* Товщина білої рамки */
-            --bottom-bar-height: 15px; /* Висота жовтої смуги внизу */
+            --bottom-bar-height: 25px; /* Висота жовтої смуги внизу */
         }
 
         /* Основний контейнер резюме */
@@ -183,7 +183,7 @@
 
         /* Опустити секцію EXPERTISE вниз */
         .left-col-section:nth-last-child(1) {
-            margin-top: 50px; /* Верхній відступ для останньої секції */
+            margin-top: 70px; /* Верхній відступ для останньої секції */
         }
 
         /* Заголовки секцій (Education, Experience, Expertise) - ВИРІВНЯНІ */
@@ -201,12 +201,24 @@
             margin-left: 0;
             padding-left: 0;
             width: auto; /* Автоматична ширина */
+            position: relative; /* Для псевдоелемента підкреслення */
         }
+        /* ДОДАНО: Жовте підкреслення після тексту заголовків */
+        .section-title::after {
+             content: ''; /* Обов'язковий для псевдоелементів */
+             position: absolute; /* Абсолютне позиціонування */
+             bottom: 1px; /* Позиція знизу */
+             left: 0; /* Початок зліва */
+             width: 100%; /* Ширина на всю довжину тексту */
+             height: 20px; /* Висота підкреслення */
+            /* Змінюємо тут: сірий колір (150, 150, 150) з прозорістю 50% (0.5) */
+            background-color: rgba(150, 150, 150, 0);
+         }
         /* Декоративна жовта/темна лінія біля заголовка */
         .section-title-line {
             display: inline-block; /* Блочно-рядковий елемент */
             width: 10px; /* Ширина лінії */
-            height: 1.3rem; /* Висота лінії */
+            height: 1.5rem; /* Висота лінії */
             background: var(--accent-yellow); /* Жовтий колір */
             margin-right: 0.75rem; /* Відступ праворуч */
         }
@@ -310,7 +322,7 @@
         .expertise-circle svg .circle-progress {
             stroke: var(--accent-yellow); /* Жовтий колір */
             stroke-dasharray: 226.2; /* Довжина штрихів (2 * π * r) */
-            stroke-dashoffset: 226.2; /* Початкове зміщення */
+            stroke-dashoffset: 226.2; /* Початкове зміщента */
             /* Чорний контур за допомогою drop-shadow */
             -webkit-filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black);
             filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black);
@@ -402,6 +414,17 @@
             max-width: none; /* Автоматична ширина */
             position: static; /* Стандартне позиціонування */
             left: auto; /* Скидаємо зсув */
+            position: relative; /* Для псевдоелемента підкреслення */
+        }
+        /* ДОДАНО: Жовте підкреслення для заголовків правої колонки */
+        .section-title.right-col-title::after {
+            content: ''; /* Обов'язковий для псевдоелементів */
+            position: absolute; /* Абсолютне позиціонування */
+            bottom: -1px;
+            left: 0; /* Початок зліва */
+            width: 100%; /* Ширина на всю довжину тексту */
+            height: 28px; /* Висота підкреслення */
+            background-color: rgba(150, 150, 150, 0.1);
         }
         /* Декоративна жовта/темна лінія біля заголовка */
         .section-title.right-col-title .section-title-line {
