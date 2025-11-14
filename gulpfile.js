@@ -10,27 +10,30 @@ const fileInclude = require('gulp-file-include');
 const del = require('del');
 
 // ----------------- Paths -----------------
+// ----------------- Paths -----------------
+// ----------------- Paths -----------------
 const paths = {
     html: {
-        src: 'app/index.html',
-        watch: 'app/**/*.html',
+        src: 'components/index.html',     // <-- ПРАВИЛЬНИЙ ШЛЯХ
+        watch: 'components/**/*.html',  // <-- Стежимо за всіма HTML в 'components'
         dest: 'dist'
     },
     styles: {
-        src: 'app/scss/style.scss',
-        watch: 'app/scss/**/*.scss',
+        src: 'components/scss/style.scss',
+        watch: 'components/scss/**/*.scss',
         dest: 'dist/css'
     },
     scripts: {
-        src: 'app/js/**/*.js',
+        src: 'components/js/script.js', // <-- Я побачив 'script.js' на скріншоті
+        watch: 'components/js/**/*.js', // <-- (Ви можете змінити це, якщо потрібно)
         dest: 'dist/js'
     },
     images: {
-        src: 'app/images/**/*',
+        src: 'components/images/**/*',
         dest: 'dist/images'
     },
     favicon: {
-        src: 'app/favicon.ico',
+        src: 'components/favicon.ico', // <-- ПРАВИЛЬНИЙ ШЛЯХ
         dest: 'dist'
     },
     bootstrap: {
@@ -38,7 +41,6 @@ const paths = {
         js: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
     }
 };
-
 // ----------------- Clean -----------------
 const clean = () => del(['dist']);
 
@@ -56,17 +58,21 @@ const copyBootstrap = parallel(copyBootstrapCSS, copyBootstrapJS);
 // ----------------- HTML -----------------
 const html = () => {
     return src(paths.html.src)
-        .pipe(fileInclude({ prefix: '@@', basepath: '@file' }))
+        .pipe(fileInclude({
+            prefix: '@@',
+            basepath: '@root' // <-- ПЕРЕВІРТЕ ЦЕ
+        }))
         .pipe(dest(paths.html.dest))
         .pipe(browserSync.stream());
 };
 
 // ----------------- Styles -----------------
+// ----------------- Styles -----------------
 const styles = () => {
     return src(paths.styles.src)
         .pipe(sass().on('error', sass.logError))
         .pipe(cssnano())
-        .pipe(rename({ basename: 'style', suffix: '.min' }))
+        .pipe(rename({ basename: 'index', suffix: '.min' })) // <-- ЗМІНЕНО
         .pipe(dest(paths.styles.dest))
         .pipe(browserSync.stream());
 };
@@ -127,7 +133,7 @@ exports.favicon = favicon;
 
 exports.default = series(
     clean,
-    // copy bootstrap first so final index.html can reference it in dist/css
+
     copyBootstrap,
     parallel(html, styles, scripts, images, favicon),
     serve,
