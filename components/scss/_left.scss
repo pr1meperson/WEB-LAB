@@ -42,6 +42,7 @@
   width: auto;
   position: relative;
 
+
   &::after {
     content: '';
     position: absolute;
@@ -57,10 +58,11 @@
   display: inline-block;
   width: 10px;
   height: 1.5rem;
-  background: $accent-yellow;
-  margin-right: 0.75rem;
+
   position: relative;
   left: -48px;
+  /* ФІКС ВИРІВНЮВАННЯ: */
+  margin-right: -12px; // <--- ЗМІНІТЬ ЦЕЙ РЯДОК
 }
 
 .section-underline {

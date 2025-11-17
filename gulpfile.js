@@ -53,7 +53,7 @@ const copyBootstrapJS = () => {
     return src(paths.bootstrap.js)
         .pipe(dest(paths.scripts.dest));
 };
-const copyBootstrap = parallel(copyBootstrapCSS, copyBootstrapJS);
+const copyBootstrap = parallel(copyBootstrapCSS, copyBootstrapJS);//паралельно запускаю таски
 
 // ----------------- HTML -----------------
 const html = () => {
