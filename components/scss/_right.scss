@@ -81,13 +81,16 @@
   }
 
   .section-title-line {
-    background: $accent-yellow !important;
-    display: inline-block;
+    position: absolute;           // <--- ✅ Робимо абсолютним
+    left: -25px;                  // <--- ✅ Відступ вліво (як у лівій колонці)
+    top: 50%;                     // <--- Центруємо по висоті
+    transform: translateY(-50%);  // <--- Центруємо по висоті
+
     width: 10px;
     height: 1.6rem;
-    margin-right: 0.75rem;
-    position: relative;
-    left: -48px;
+    background: $accent-yellow !important;
+
+    // margin-right видаляємо, він тут не потрібен
   }
 }
 
