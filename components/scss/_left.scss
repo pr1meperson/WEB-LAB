@@ -22,7 +22,7 @@
 .left-col-section {
   padding: 2rem 3rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   &:nth-last-child(1) {
     margin-top: 70px;
   }
@@ -55,14 +55,14 @@
 }
 
 .section-title-line {
-  display: inline-block;
+  position: absolute; // <-- Фіксує положення лінії
+  left: -45px;       // <-- Налаштовує відступ від краю. Змінюйте це число, якщо лінія надто близько/далеко.
+  top: 50%;
+  transform: translateY(-50%);
+
   width: 10px;
   height: 1.5rem;
-
-  position: relative;
-  left: -48px;
-  /* ФІКС ВИРІВНЮВАННЯ: */
-  margin-right: -12px; // <--- ЗМІНІТЬ ЦЕЙ РЯДОК
+  background: $accent-yellow; // Колір
 }
 
 .section-underline {
