@@ -84,10 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /**
-     * ЛАБ 4 (Без змін): Згортання блоків
-     * Ця функція не потребує даних з JSON, тому залишається як є.
-     */
+
     function setupCollapsibles() {
         const triggers = document.querySelectorAll(".collapsible-trigger");
 
@@ -105,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --- Ініціалізація ---
+
 
     // 1. Запускаємо логіку згортання (статична)
     setupCollapsibles();
