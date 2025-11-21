@@ -1,82 +1,68 @@
-// Чекаємо завантаження DOM (Вимога ЛАБ 4)
 document.addEventListener("DOMContentLoaded", () => {
 
     /**
-     * ==========================================
-     * ЗАВДАННЯ 1: Функція підстановки імені
-     * ==========================================
+     * ЛАБ 5: Функція завантаження даних (AJAX / Fetch API)
      */
-    function displayUserName() {
-        const fullName = "Michel Rigaurio"; // Заздалегідь визначене ім'я
-        const element = document.getElementById("personName"); // Пошук за ID
+    async function loadResumeData() {
+        try {
+            // 1. Виконуємо запит до файлу data.json
+            const response = await fetch('data/data.json');
 
-        if (element) {
-            // Запис у текстовий вміст (без HTML)
-            element.textContent = fullName;
+            // Перевірка на помилку HTTP
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // 2. Перетворення відповіді у JSON-об'єкт
+            const data = await response.json();
+
+            // 3. Виклик функцій відображення з отриманими даними
+            displayUserName(data.person);
+            generateExpertise(data.expertise);
+
+        } catch (error) {
+            console.error('Помилка завантаження даних:', error);
+            // Відображення повідомлення про помилку користувачеві (Завдання 2)
+            const expertiseContainer = document.getElementById("expertise-container");
+            const nameContainer = document.getElementById("personName");
+
+            if (expertiseContainer) {
+                expertiseContainer.innerHTML = `<p style="color: red;">Дані не завантажено. Спробуйте пізніше.</p>`;
+            }
+            if (nameContainer) {
+                nameContainer.textContent = "Error loading name";
+            }
         }
     }
-    // Виклик функції
-    displayUserName();
 
 
     /**
-     * ==========================================
-     * ЗАВДАННЯ 2: Обробка подій click (Collapsible)
-     * ==========================================
+     * ЛАБ 5 (Оновлено): Підстановка імені з об'єкта
      */
-    function setupCollapsibles() {
-        // Знаходимо всі блоки-тригери
-        const triggers = document.querySelectorAll(".collapsible-trigger");
-
-        triggers.forEach(trigger => {
-            trigger.addEventListener("click", () => {
-                // Знаходимо контент (наступний елемент)
-                const content = trigger.nextElementSibling;
-                // Знаходимо стрілку всередині заголовка
-                const arrow = trigger.querySelector(".toggle-arrow");
-
-                if (content && arrow) {
-                    // Перемикання класу видимості (додавання/видалення)
-                    content.classList.toggle("hidden");
-                    // Перемикання класу орієнтації стрілки
-                    arrow.classList.toggle("rotated");
-                }
-            });
-        });
+    function displayUserName(person) {
+        const element = document.getElementById("personName");
+        if (element && person) {
+            // Формуємо повне ім'я з полів JSON
+            element.textContent = `${person.firstName} ${person.lastName}`;
+        }
     }
-    // Виклик функції
-    setupCollapsibles();
 
 
     /**
-     * ==========================================
-     * ЗАВДАННЯ 3: Генерація розмітки з масиву
-     * ==========================================
+     * ЛАБ 5 (Оновлено): Генерація навичок з масиву
      */
-        // Оголошення масиву даних (з прогресом у %)
-    const expertiseData = [
-            { name: "Adobe<br>Photoshop", class: "ps", progress: 90 },
-            { name: "Adobe<br>Illustrator", class: "ai", progress: 75 },
-            { name: "Adobe<br>Indesign", class: "id", progress: 60 },
-            { name: "Figma<br>Sketch", class: "pp", progress: 85 }
-        ];
-
-    function generateExpertise(data) {
+    function generateExpertise(dataArray) {
         const container = document.getElementById("expertise-container");
-        if (!container) return;
+        if (!container || !dataArray) return;
 
-        // Очищення вмісту контейнера перед вставленням
+        const radius = 36;
+        const circumference = 2 * Math.PI * radius;
+
         container.innerHTML = "";
 
-        // Константи для розрахунку кола (радіус 36px)
-        const radius = 36;
-        const circumference = 2 * Math.PI * radius; // ~226.19
-
-        data.forEach(item => {
-            // Розрахунок відступу штриха (offset) на основі прогресу
+        dataArray.forEach(item => {
             const offset = circumference - (item.progress / 100) * circumference;
 
-            // Генерація HTML (Template Literal)
             const itemHtml = `
                 <div class="expertise-item">
                     <div class="expertise-circle ${item.class} mb-2">
@@ -93,11 +79,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </div>
             `;
-            // Вставка в контейнер
             container.innerHTML += itemHtml;
         });
     }
-    // Виклик функції
-    generateExpertise(expertiseData);
+
+
+    /**
+     * ЛАБ 4 (Без змін): Згортання блоків
+     * Ця функція не потребує даних з JSON, тому залишається як є.
+     */
+    function setupCollapsibles() {
+        const triggers = document.querySelectorAll(".collapsible-trigger");
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener("click", () => {
+                const content = trigger.nextElementSibling;
+                const arrow = trigger.querySelector(".toggle-arrow");
+
+                if (content && arrow) {
+                    content.classList.toggle("hidden");
+                    arrow.classList.toggle("rotated");
+                }
+            });
+        });
+    }
+
+
+    // --- Ініціалізація ---
+
+    // 1. Запускаємо логіку згортання (статична)
+    setupCollapsibles();
+
+    // 2. Завантажуємо дані з сервера (динамічні)
+    loadResumeData();
 
 });

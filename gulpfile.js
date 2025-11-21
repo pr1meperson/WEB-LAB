@@ -10,12 +10,10 @@ const fileInclude = require('gulp-file-include');
 const del = require('del');
 
 // ----------------- Paths -----------------
-// ----------------- Paths -----------------
-// ----------------- Paths -----------------
 const paths = {
     html: {
-        src: 'components/index.html',     // <-- ПРАВИЛЬНИЙ ШЛЯХ
-        watch: 'components/**/*.html',  // <-- Стежимо за всіма HTML в 'components'
+        src: 'components/index.html',
+        watch: 'components/**/*.html',
         dest: 'dist'
     },
     styles: {
@@ -24,16 +22,21 @@ const paths = {
         dest: 'dist/css'
     },
     scripts: {
-        src: 'components/js/script.js', // <-- Я побачив 'script.js' на скріншоті
-        watch: 'components/js/**/*.js', // <-- (Ви можете змінити це, якщо потрібно)
+        src: 'components/js/script.js',
+        watch: 'components/js/**/*.js',
         dest: 'dist/js'
     },
     images: {
         src: 'components/images/**/*',
         dest: 'dist/images'
     },
+    // НОВЕ: Шлях для JSON файлів
+    data: {
+        src: 'components/data/**/*.json',
+        dest: 'dist/data'
+    },
     favicon: {
-        src: 'components/favicon.ico', // <-- ПРАВИЛЬНИЙ ШЛЯХ
+        src: 'components/favicon.ico',
         dest: 'dist'
     },
     bootstrap: {
@@ -41,43 +44,46 @@ const paths = {
         js: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
     }
 };
+
 // ----------------- Clean -----------------
 const clean = () => del(['dist']);
 
-// ----------------- Bootstrap copy -----------------
-const copyBootstrapCSS = () => {
-    return src(paths.bootstrap.css)
-        .pipe(dest(paths.styles.dest));
-};
-const copyBootstrapJS = () => {
-    return src(paths.bootstrap.js)
-        .pipe(dest(paths.scripts.dest));
-};
-const copyBootstrap = parallel(copyBootstrapCSS, copyBootstrapJS);//паралельно запускаю таски
+// ----------------- Tasks -----------------
 
-// ----------------- HTML -----------------
+// Копіювання Bootstrap
+const copyBootstrapCSS = () => src(paths.bootstrap.css).pipe(dest(paths.styles.dest));
+const copyBootstrapJS = () => src(paths.bootstrap.js).pipe(dest(paths.scripts.dest));
+const copyBootstrap = parallel(copyBootstrapCSS, copyBootstrapJS);
+
+// НОВЕ: Копіювання JSON даних
+const copyData = () => {
+    return src(paths.data.src)
+        .pipe(dest(paths.data.dest))
+        .pipe(browserSync.stream());
+};
+
+// HTML
 const html = () => {
     return src(paths.html.src)
         .pipe(fileInclude({
             prefix: '@@',
-            basepath: '@root' // <-- ПЕРЕВІРТЕ ЦЕ
+            basepath: '@root'
         }))
         .pipe(dest(paths.html.dest))
         .pipe(browserSync.stream());
 };
 
-// ----------------- Styles -----------------
-// ----------------- Styles -----------------
+// Styles
 const styles = () => {
     return src(paths.styles.src)
         .pipe(sass().on('error', sass.logError))
         .pipe(cssnano())
-        .pipe(rename({ basename: 'index', suffix: '.min' })) // <-- ЗМІНЕНО
+        .pipe(rename({ basename: 'index', suffix: '.min' }))
         .pipe(dest(paths.styles.dest))
         .pipe(browserSync.stream());
 };
 
-// ----------------- Scripts -----------------
+// Scripts
 const scripts = () => {
     return src(paths.scripts.src, { sourcemaps: false })
         .pipe(concat('main.min.js'))
@@ -89,20 +95,20 @@ const scripts = () => {
         .pipe(browserSync.stream());
 };
 
-// ----------------- Images -----------------
+// Images
 const images = () => {
     return src(paths.images.src)
         .pipe(imagemin())
         .pipe(dest(paths.images.dest));
 };
 
-// ----------------- Favicon -----------------
+// Favicon
 const favicon = () => {
     return src(paths.favicon.src, { allowEmpty: true })
         .pipe(dest(paths.favicon.dest));
 };
 
-// ----------------- Server -----------------
+// Server
 const serve = done => {
     browserSync.init({
         server: {
@@ -114,28 +120,20 @@ const serve = done => {
     done();
 };
 
-// ----------------- Watcher -----------------
+// Watcher (Оновлено для JSON)
 const watcher = () => {
     watch(paths.html.watch, html);
     watch(paths.styles.watch, styles);
     watch(paths.scripts.src, scripts);
     watch(paths.images.src, images);
+    watch(paths.data.src, copyData); // Стежимо за JSON
 };
 
-// ----------------- Exports -----------------
-exports.clean = clean;
-exports.bootstrap = copyBootstrap;
-exports.html = html;
-exports.styles = styles;
-exports.scripts = scripts;
-exports.images = images;
-exports.favicon = favicon;
-
+// Exports
 exports.default = series(
     clean,
-
     copyBootstrap,
-    parallel(html, styles, scripts, images, favicon),
+    parallel(html, styles, scripts, images, favicon, copyData), // Додано copyData
     serve,
     watcher
 );
